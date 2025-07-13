@@ -14,12 +14,12 @@ Book.objects.get(id=product_id)
 Expected Output: <Book: 1984 by George Orwell (1949)>
 
 ### Update the Book object entry
-Book.objects.get(id=product_id)
+Book.objects.get(title="1984").update(title="Nineteen Eighty-Four")
 
 Expected Result: 1
 (Indicating number of objects updated)
 
 ### Delete the Book object entry
-Book.objects.filter(price__gt=200.00).delete()
+Book.objects.filter(publication_year=1949).delete()
 
 Expected Output: (1, {'bookshelf.Book': 1})
