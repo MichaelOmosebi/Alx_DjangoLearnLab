@@ -83,20 +83,21 @@ def is_librarian(user):
 
 def is_member(user):
     return user.userprofile.role == 'Member'
+
 @user_passes_test(is_admin)
 def admin_view(request):
     """View accessible only to Admin users."""
-    return render(request, 'relationship_app/admin_view.html') 
+    return render(request, 'relationship_app/templates/admin_view.html') 
 
 @user_passes_test(is_librarian)
 def librarian_view(request):
     """View accessible only to Librarian users."""
-    return render(request, 'relationship_app/librarian_view.html')
+    return render(request, 'relationship_app/templates/librarian_view.html')
 
 @user_passes_test(is_member)
 def member_view(request):
     """View accessible only to Member users."""
-    return render(request, 'relationship_app/member_view.html')
+    return render(request, 'relationship_app/templates/member_view.html')
 
 # Ensure that the templates 'admin_view.html', 'librarian_view.html', and 'member_view.html' exist in your templates directory.
 # This code defines views for user registration and role-based access control in a Django application.
