@@ -57,7 +57,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['relationship_app/list_books.html',
-                 'relationship_app/library_detail.html'],  # Ensure this points to your templates directory
+                 'relationship_app/library_detail.html',
+                 'relationship_app/registration/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
