@@ -5,6 +5,7 @@ from .models import Library
 from .models import Author, Librarian, Book, Library
 from django.views.generic import ListView
 from django.views.generic import DetailView
+from django.views.generic.detail import DetailView
 
 def book_list(request):
       """Retrieves all books and renders a template displaying the list."""
