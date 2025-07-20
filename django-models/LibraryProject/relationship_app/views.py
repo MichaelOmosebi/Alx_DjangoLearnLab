@@ -61,3 +61,42 @@ class register(CreateView):
     template_name = 'registration/register.html'
 
 
+# Set Up Role-Based Views
+# Create three separate views to manage content access based on user roles:
+
+# Views to Implement:
+
+# An ‘Admin’ view that only users with the ‘Admin’ role can access, the name of the file should be admin_view
+# A ‘Librarian’ view accessible only to users identified as ‘Librarians’. The file should be named librarian_view
+# A ‘Member’ view for users with the ‘Member’ role, the name of the file should be member_view
+# Access Control:
+
+# Utilize the @user_passes_test decorator to check the user’s role before granting access to each view.
+
+from django.contrib.auth.decorators import user_passes_test
+
+def is_admin(user):
+    return user.userprofile.role == 'Admin'
+
+def is_librarian(user):
+    return user.userprofile.role == 'Librarian'
+
+def is_member(user):
+    return user.userprofile.role == 'Member'
+@user_passes_test(is_admin)
+def admin_view(request):
+    """View accessible only to Admin users."""
+    return render(request, 'relationship_app/admin_view.html') 
+
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    """View accessible only to Librarian users."""
+    return render(request, 'relationship_app/librarian_view.html')
+
+@user_passes_test(is_member)
+def member_view(request):
+    """View accessible only to Member users."""
+    return render(request, 'relationship_app/member_view.html')
+
+# Ensure that the templates 'admin_view.html', 'librarian_view.html', and 'member_view.html' exist in your templates directory.
+# This code defines views for user registration and role-based access control in a Django application.
