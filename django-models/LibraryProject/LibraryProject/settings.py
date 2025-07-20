@@ -56,7 +56,8 @@ ROOT_URLCONF = 'LibraryProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['relationship_app/list_books.html',
+                 'relationship_app/library_detail.html'],  # Ensure this points to your templates directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
