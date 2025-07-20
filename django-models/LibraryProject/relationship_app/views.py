@@ -7,7 +7,14 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.views.generic.detail import DetailView
 
-def book_list(request):
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+
+def list_books(request):
       """Retrieves all books and renders a template displaying the list."""
       books = Book.objects.all()  # Fetch all book instances from the database
       context = {'book_list': books}  # Create a context dictionary with book list
@@ -45,4 +52,12 @@ class LibraryDetailView(DetailView):
 # This code defines views for listing books and displaying details of a specific book and library in a Django application.
 
 # Ensure that the necessary models (Book, Library) are defined in relationship_app/models.py.
+
+# Create a user registration view using Django's built-in UserCreationForm.
+# This view will allow users to sign up for an account.
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/login.html'
+
 
