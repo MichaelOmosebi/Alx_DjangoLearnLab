@@ -55,7 +55,7 @@ class LibraryDetailView(DetailView):
 
 # Create a user registration view using Django's built-in UserCreationForm.
 # This view will allow users to sign up for an account.
-class SignUpView(CreateView):
+class register(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/login.html'
