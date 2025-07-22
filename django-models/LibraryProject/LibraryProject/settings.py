@@ -56,9 +56,7 @@ ROOT_URLCONF = 'LibraryProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['relationship_app/list_books.html',
-                 'relationship_app/library_detail.html',
-                 'relationship_app/registration/'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,3 +122,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Checking the base directory
+# print(f'The base directory is {BASE_DIR}')
+
+# # get all files in the base directory
+# import os
+
+# files = os.listdir(BASE_DIR / 'templates')
+# print(f'All files in the templates directory: {files}')
+# --- The BASE directory of this Django project is "C:\Users\Micheal\Videos\ALX_BE\django\intro_to_django\Alx_DjangoLearnLab\Alx_DjangoLearnLab\django-models\LibraryProject"
+# --- It correctly points to the location where the project files are stored, including the "templates" directory. which is of concern...
+
