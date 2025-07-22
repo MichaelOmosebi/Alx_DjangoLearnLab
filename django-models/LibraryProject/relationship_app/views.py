@@ -39,7 +39,17 @@ class LibraryDetailView(DetailView):
         library = self.get_object()  # Retrieve the current library instance
         context['books'] = library.books.all()  # List all books in the library
         return context
-    
+
+class LibraryListView(ListView):
+    """A class-based view for displaying a list of libraries."""
+    model = Library
+    template_name = 'relationship_app/library_detail.html'
+
+    def get_context_data(self, **kwargs):
+        """Injects additional context data specific to the library."""
+        context = super().get_context_data(**kwargs)  # Get default context data
+        context['libraries'] = Library.objects.all()  # List all libraries
+        return context  
 
 # Note: Ensure that the template files 'books/book_list.html', 'books/book_detail.html', and 'libraries/library_detail.html' exist in your templates directory.
 # This code defines views for listing books and displaying details of a specific book and library in a Django application.
