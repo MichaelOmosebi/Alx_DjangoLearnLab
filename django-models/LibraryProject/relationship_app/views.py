@@ -14,23 +14,29 @@ from django.views.generic import CreateView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
+def index(request):
+    # """Renders the index page of the relationship app."""
+    # return render(request, 'index.html')
+    return("This is the index page of the relationship app.")
+
 def list_books(request):
       """Retrieves all books and renders a template displaying the list."""
       books = Book.objects.all()  # Fetch all book instances from the database
       context = {'book_list': books}  # Create a context dictionary with book list
-      return render(request, 'relationship_app/list_books.html', context)
+      return render(request, 'list_books.html', context)
 
 class BookDetailView(DetailView):
-  """A class-based view for displaying details of a specific book."""
-  model = Book
-  template_name = 'relationship_app/book_detail.html'
+    """A class-based view for displaying details of a specific book."""
+  
+    model = Book
+    template_name = 'book_detail.html'
 
-  def get_context_data(self, **kwargs):
-    """Injects additional context data specific to the book."""
-    context = super().get_context_data(**kwargs)  # Get default context data
-    book = self.get_object()  # Retrieve the current book instance
-    context['average_rating'] = book.get_average_rating()
-    return context
+    def get_context_data(self, **kwargs):
+        """Injects additional context data specific to the book."""
+        context = super().get_context_data(**kwargs)  # Get default context data
+        book = self.get_object()  # Retrieve the current book instance
+        context['average_rating'] = book.get_average_rating()
+        return context
   
 
 # Create a class-based view in relationship_app/views.py that displays details for a specific library, listing all books available in that library.
@@ -38,7 +44,7 @@ class BookDetailView(DetailView):
 class LibraryDetailView(DetailView):
     """A class-based view for displaying details of a specific library."""
     model = Library
-    template_name = 'relationship_app/library_detail.html'
+    template_name = 'library_detail.html'
 
     def get_context_data(self, **kwargs):
         """Injects additional context data specific to the library."""
