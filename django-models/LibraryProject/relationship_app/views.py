@@ -104,3 +104,34 @@ def member_view(request):
 
 # Ensure that the templates 'admin_view.html', 'librarian_view.html', and 'member_view.html' exist in your templates directory.
 # This code defines views for user registration and role-based access control in a Django application.
+
+
+# Step 1: Extend the Book Model with Custom Permissions
+# Add custom permissions to the Book model to specify who can add, edit, or delete the entries.
+
+# Model Changes Required:
+# Inside the Book model, define a nested Meta class.
+# Within this Meta class, specify a permissions tuple that includes permissions like can_add_book, can_change_book, and can_delete_book.
+# Step 2: Update Views to Enforce Permissions
+# Adjust your views to check if a user has the necessary permissions before allowing them to perform create, update, or delete operations.
+
+# Views to Modify:
+# Use Django’s permission_required decorator to secure views that add, edit, or delete books.
+# For each view, apply the corresponding permission.
+
+from django.contrib.auth.decorators import permission_required
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    # View logic for adding a book
+    pass
+
+@permission_required('relationship_app.can_change_book')
+def edit_book(request, book_id):
+    # View logic for editing a book
+    pass
+
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    # View logic for deleting a book
+    pass

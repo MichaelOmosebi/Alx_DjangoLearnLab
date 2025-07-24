@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from .views import list_books, LibraryDetailView, LibraryListView
+from .views import is_librarian, list_books, LibraryDetailView, LibraryListView
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -14,10 +14,10 @@ urlpatterns = [
     path("librarian_view/", views.librarian_view, name="librarian_view"),
     path("member_view/", views.member_view, name="member_view"),
     path("admin_view/", views.admin_view, name="admin_view"),
+    path("delete_book/", views.delete_book, name="delete_book", kwargs={'permission_required': 'relationship_app.can_delete_book'} ),
+    path("add_book/", views.add_book, name="add_book", kwargs={'permission_required': 'relationship_app.can_add_book'}),
+    path("edit_book/", views.edit_book, name="edit_book", kwargs={'permission_required': 'relationship_app.can_change_book'}),
 ]
 
-# Configure URL Patterns:
-# Edit relationship_app/urls.py to include URL patterns that route to the newly created views. Make sure to link both the function-based and class-based views.
-
-# This will allow users to access the book list, book details, and library details through the specified URLs.
-# Ensure that the URLs are correctly mapped to the views in your Django application.
+# Note: Ensure that the views and templates referenced in the URLs exist and are correctly implemented.
+# The urlpatterns list routes URLs to views. For more information please see: https://docs.djangoproject.com/en/stable/topics/http/urls/
