@@ -16,6 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.http import HttpResponseForbidden
+from django.shortcuts import render
+
+# Decorator to restrict to superusers only
+def superuser_only(view_func):
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.is_superuser:
+            return view_func(request, *args, **kwargs)
+        return HttpResponseForbidden("Access denied: Superusers only.")
+    return wrapper
+
+# Apply restriction to admin site views
+admin.site.login = superuser_only(admin.site.login)
+admin.site.admin_view = superuser_only(admin.site.admin_view)
 
 urlpatterns = [
     path("books/", include("bookshelf.urls")),
