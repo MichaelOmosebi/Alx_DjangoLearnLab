@@ -122,7 +122,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'bookshelf.myCustomUser'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
 # Checking the base directory
 # print(f'The base directory is {BASE_DIR}')
 

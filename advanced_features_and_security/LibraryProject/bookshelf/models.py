@@ -36,12 +36,12 @@ class myUserManager(BaseUserManager):
         # return self.create_user(email, password, **extra_fields)
 
 
-class myCustomUser(AbstractUser):
+class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     email = models.EmailField(unique=True)
 
-    
+
     USERNAME_FIELD = 'email' # This is the field that will be used as the username --- can be changed to 'username'/Full Name if needed
     REQUIRED_FIELDS = []  # No additional fields required for user creation
 

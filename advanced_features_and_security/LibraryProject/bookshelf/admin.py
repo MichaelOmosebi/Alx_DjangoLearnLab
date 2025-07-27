@@ -1,7 +1,7 @@
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
 from django.urls import path, include
-from .models import Book, myCustomUser
+from .models import Book, CustomUser
 
 # Register your models here.
 
@@ -12,4 +12,4 @@ class ModelAdmin(UserAdmin):
     # search_fields = ("title", "author",)
 
 
-admin.site.register(myCustomUser, ModelAdmin)
+admin.site.register(CustomUser, ModelAdmin)
