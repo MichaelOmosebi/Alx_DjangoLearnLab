@@ -21,3 +21,13 @@ def list_books(request):
       books = Book.objects.all()  # Fetch all book instances from the database
       context = {'book_list': books}  # Create a context dictionary with book list
       return render(request, 'relationship_app/list_books.html', context)
+
+# ============= Test SECURE_PROXY_SSL_HEADER = 'HTTP_X_FORWARDED_PROTO' =============
+from django.http import HttpResponse
+import logging
+
+def check_secure(request):
+    logging.getLogger('django.request').info(
+        f"[DEBUG] Secure: {request.is_secure()} | Scheme: {request.scheme} | Header: {request.META.get('HTTP_X_FORWARDED_PROTO')}"
+    )
+    return HttpResponse("Logged request.is_secure()")
