@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e!0u*cm)sxr33xw%mo5_$&jq_a!2xr6+-z=ucznk4l7b$9i^xm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #Set to True in Development Server and False in Production Server
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # Set to ['*'] for development, but specify allowed hosts in production
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'yourdomain.com']  # Replace 'yourdomain.com' with your actual domain name
 
 
 # Application definition
@@ -178,7 +179,8 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent the browser from MIME-sniffing a r
 X_FRAME_OPTIONS = 'DENY'  # Prevent the site from being framed to protect against clickjacking attacks --- 
 
 
-
+# LibraryProject/LibraryProject/settings.py doesn't contain: ["SECURE_PROXY_SSL_HEADER", "HTTP_X_FORWARDED_PROTO"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Uncomment if using a reverse proxy that sets this header
 
 # Checking the base directory
 # print(f'The base directory is {BASE_DIR}')

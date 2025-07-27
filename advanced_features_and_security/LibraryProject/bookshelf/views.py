@@ -26,8 +26,8 @@ def list_books(request):
 from django.http import HttpResponse
 import logging
 
+logger = logging.getLogger('django.request')
+
 def check_secure(request):
-    logging.getLogger('django.request').info(
-        f"[DEBUG] Secure: {request.is_secure()} | Scheme: {request.scheme} | Header: {request.META.get('HTTP_X_FORWARDED_PROTO')}"
-    )
-    return HttpResponse("Logged request.is_secure()")
+    logger.info(f"[SECURE CHECK] is_secure: {request.is_secure()} | Scheme: {request.scheme} | Header: {request.META.get('HTTP_X_FORWARDED_PROTO')}")
+    return HttpResponse("Check complete. See server logs.")
