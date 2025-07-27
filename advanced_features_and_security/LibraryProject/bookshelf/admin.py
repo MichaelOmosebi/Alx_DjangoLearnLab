@@ -5,11 +5,11 @@ from .models import Book, CustomUser
 
 # Register your models here.
 
-class ModelAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin):
     pass
     # list_display = ("title", "author", "publication_year",)
     # list_filter = ("title", "author", "publication_year",)
     # search_fields = ("title", "author",)
 
 
-admin.site.register(CustomUser, ModelAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
