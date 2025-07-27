@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, AbstractUser, BaseUserManager
 
     
 
-class myUserManager(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -45,7 +45,7 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email' # This is the field that will be used as the username --- can be changed to 'username'/Full Name if needed
     REQUIRED_FIELDS = []  # No additional fields required for user creation
 
-    objects = myUserManager()
+    objects = CustomUserManager()
 
 # --- replace this new User model with the default User model in the other Apps related to this project, where a user object is called...
 
