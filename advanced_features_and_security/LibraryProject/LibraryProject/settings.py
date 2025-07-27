@@ -156,6 +156,30 @@ CONTENT_SECURITY_POLICY = {
     },
 }
 
+# Security Settings to Adjust:
+# SECURE_SSL_REDIRECT: Set to True to redirect all non-HTTPS requests to HTTPS.
+# SECURE_HSTS_SECONDS: Set an appropriate value (e.g., 31536000 for one year) to instruct browsers to only access the site via HTTPS for the specified time.
+# SECURE_HSTS_INCLUDE_SUBDOMAINS and SECURE_HSTS_PRELOAD: Set to True to include all subdomains in the HSTS policy and to allow preloading.
+# SECURE_HSTS_PRELOAD: Set to True to allow preloading of the HSTS policy.
+# --- Note: Ensure that your web server is configured to handle HTTPS requests properly.
+
+SECURE_HSTS_SECONDS = 31536000  # One year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+
+# Ensure secure cookies
+SESSION_COOKIE_SECURE = True  # Ensure session cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True  # Ensure CSRF cookies are only sent over HTTPS
+
+# Implement secure headers
+SECURE_BROWSER_XSS_FILTER = True  # Enable the browser's XSS filter
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent the browser from MIME-sniffing a response away from the declared content type
+X_FRAME_OPTIONS = 'DENY'  # Prevent the site from being framed to protect against clickjacking attacks --- 
+
+
+
+
 # Checking the base directory
 # print(f'The base directory is {BASE_DIR}')
 
