@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import permission_required
 from .models import Book
 from django.views.decorators.csrf import csrf_protect
+from .forms import ExampleForm
 
 #my inclusions
 from django.http import HttpResponse
