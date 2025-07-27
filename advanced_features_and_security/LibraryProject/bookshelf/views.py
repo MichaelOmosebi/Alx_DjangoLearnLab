@@ -10,7 +10,7 @@ def index(request):
     response = "Welcome to the Book shelf 📚"
     return HttpResponse(response)
 
-@permission_required('bookshelf.can_edit_book', raise_exception=True)
+@permission_required('bookshelf.can_edit', raise_exception=True)
 def edit_book(request, book_id):
     # Logic to edit a book
     response = f"Edit book with ID: {book_id}"
