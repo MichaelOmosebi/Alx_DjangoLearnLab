@@ -2,15 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+from django.views.decorators.csrf import csrf_protect
 
 #my inclusions
 from django.http import HttpResponse
 
 # Create your views here.
+@csrf_protect
 def index(request):
     response = "Welcome to the Book shelf 📚"
     return HttpResponse(response)
 
+@csrf_protect
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def list_books(request):
       """Retrieves all books and renders a template displaying the list."""

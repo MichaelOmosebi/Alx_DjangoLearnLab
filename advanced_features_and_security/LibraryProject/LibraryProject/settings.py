@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'csp',  # Content Security Policy Middleware --- introduced for security
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',  # Content Security Policy Middleware --- introduced for security
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,6 +125,37 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+
+# --- Additional settings for the project can be added here, such as logging, email configuration, etc.
+# settings.py — Browser-Side Security Headers
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
+# settings.py — Secure Cookies
+CSRF_COOKIE_SECURE = True #--- Ensures that the CSRF cookie is only sent over HTTPS
+SESSION_COOKIE_SECURE = True #--- Ensures that the session cookie is only sent over HTTPS
+
+# settings.py — Content Security Policy (CSP)
+# CSP_DEFAULT_SRC = ("'self'",)
+# CSP_SCRIPT_SRC = ("'self'",) # Allows scripts from the same origin while also allowing trusted CDNs another example: 'https://trusted.cdn.com'
+# CSP_STYLE_SRC = ("'self'",) # Allows styles from the same origin while also allowing Google Fonts. Another example is to include: 'https://fonts.googleapis.com'
+# CSP_IMG_SRC = ("'self'", 'data:') # Allows images from the same origin and data URIs
+# CSP_FONT_SRC = ("'self'",)
+# -------------- Above is the old way of setting CSP, which is now deprecated in favor of the new way below ----------------
+from csp.constants import SELF
+
+CONTENT_SECURITY_POLICY = {
+    "EXCLUDE_URL_PREFIXES": ["/admin"],
+    "DIRECTIVES": {
+        "default-src": [SELF, "*.example.com"],
+        "script-src": [SELF, "js.cdn.com/example/"],
+        "img-src": [SELF, "data:", "example.com"],
+    },
+}
+
 # Checking the base directory
 # print(f'The base directory is {BASE_DIR}')
 

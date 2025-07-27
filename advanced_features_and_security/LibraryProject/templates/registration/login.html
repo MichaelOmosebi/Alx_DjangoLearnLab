@@ -1,4 +1,5 @@
 <!-- library_detail.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
     <title>Library Detail</title>
 </head>
 <body>
+    {% csrf_token %}
     <h1>Library: {{ library.name }}</h1>
     <h2>Books in Library:</h2>
     <ul>
