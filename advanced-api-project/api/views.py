@@ -28,9 +28,9 @@ class ListView(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
 
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend] #optional to declaring globally within the App in the settings.py file
-    filter_backends = [rest_framework.DjangoFilterBackend]
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [rest_framework.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filter_fields = ['title', 'author', 'publication_year']
+    search_fields = ['title', 'author']
     ordering_fields = ['title', 'publication_year']
 
 class UpdateView(generics.UpdateAPIView):
