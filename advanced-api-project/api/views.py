@@ -4,6 +4,7 @@ from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics
+from django_filters import rest_framework
 
 # import django_filters.rest_framework
 
@@ -13,7 +14,7 @@ from rest_framework import generics
 class CreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
 class DetailView(generics.RetrieveAPIView):
