@@ -7,6 +7,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics
 
 # Create your views here.
+# updated
 
 class CreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
