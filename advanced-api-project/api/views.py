@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from rest_framework import viewsets
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
