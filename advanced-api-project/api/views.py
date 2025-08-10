@@ -6,8 +6,6 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics
 from django_filters import rest_framework
 
-# import django_filters.rest_framework
-
 # Create your views here.
 # updated
 
@@ -30,7 +28,9 @@ class ListView(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
 
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend] #optional to declaring globally within the App in the settings.py file
+    filter_backends = [rest_framework.DjangoFilterBackend]
     filter_fields = ['title', 'author', 'publication_year']
+    ordering_fields = ['title', 'publication_year']
 
 class UpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
