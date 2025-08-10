@@ -3,7 +3,7 @@ from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from rest_framework import generics
+from rest_framework import generics, filters
 from django_filters import rest_framework
 
 # Create your views here.
@@ -29,6 +29,7 @@ class ListView(generics.ListAPIView):
 
     # filter_backends = [django_filters.rest_framework.DjangoFilterBackend] #optional to declaring globally within the App in the settings.py file
     filter_backends = [rest_framework.DjangoFilterBackend]
+    filter_backends = [filters.OrderingFilter]
     filter_fields = ['title', 'author', 'publication_year']
     ordering_fields = ['title', 'publication_year']
 
