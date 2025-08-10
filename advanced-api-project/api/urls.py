@@ -8,7 +8,7 @@ from .views import (
 )
 
 
-url_patterns = [
+urlpatterns = [
     path('books/create/', CreateView.as_view(), name='create-book'),
     path('books/<int:pk>/', DetailView.as_view(), name='retrieve-book'),
     path('books/', ListView.as_view(), name='list-books'),
