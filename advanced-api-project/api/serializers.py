@@ -16,6 +16,12 @@ from django.utils import timezone
 # Add custom validation to the BookSerializer to ensure the publication_year is not in the future.
 
 class BookSerializer(serializers.ModelSerializer):
+    # Instead of showing author id, use author name
+    author = serializers.SlugRelatedField(
+        queryset=Author.objects.all(),
+        slug_field='name'  # The field on Author model to use for lookup
+    )
+
     class Meta:
         model = Book
         fields = '__all__'
