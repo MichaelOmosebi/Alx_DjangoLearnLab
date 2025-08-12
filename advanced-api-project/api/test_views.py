@@ -1,4 +1,5 @@
 from rest_framework.test import APIRequestFactory, APITestCase
+from rest_framework import status
 from django.test import TestCase
 from .views import DetailView
 
@@ -62,3 +63,4 @@ class BookAPITestCase(APITestCase):
         request = self.factory.delete('/books/1/')
         response = self.view(request, pk=1)
         self.assertEqual(response.status_code, 204)
+        self.assertEqual(len(response.data), 1)
