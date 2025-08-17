@@ -1,7 +1,7 @@
 
-{% load static %}
-{% extends "base.html" %}
 
+
+{% extends "base.html" %}
 
 {% block content %}
     <h1>Login</h1>
@@ -13,7 +13,6 @@
         {% endif %}
         <button type="submit">Login</button>
     </form>
-
     <p>
         Don’t have an account?
         <a href="{% url 'users:register' %}">Register here</a>
