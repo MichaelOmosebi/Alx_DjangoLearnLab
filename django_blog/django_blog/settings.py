@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -76,9 +77,9 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-                'NAME': 'mydatabase',  # Your database name
-                'USER': 'myuser',  # Your MySQL username
-                'PASSWORD': '1234',  # Your MySQL password
+                'NAME': 'mydbase_customers',  # Your database name
+                'USER': 'root',  # Your MySQL username
+                'PASSWORD': 'MichaelDev_2025',  # Your MySQL password
                 'HOST': 'localhost',  # Or your MySQL server host
                 'PORT': '3306',  # Default MySQL port
     }
@@ -130,3 +131,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+LOGIN_REDIRECT_URL = 'blog:home'   # redirect after successful login
+LOGOUT_REDIRECT_URL = 'blog:home' # redirect after logout
+
+LOGIN_URL = 'users:login'
+

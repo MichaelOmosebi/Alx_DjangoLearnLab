@@ -1,0 +1,21 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+        <button type="submit">Login</button>
+    </form>
+
+    <p>
+        Don’t have an account?
+        <a href="{% url 'users:register' %}">Register here</a>
+    </p>
+{% endblock %}

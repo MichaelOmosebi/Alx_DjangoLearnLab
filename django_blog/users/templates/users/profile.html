@@ -1,0 +1,26 @@
+
+{% load static %}
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>My Profile</h1>
+
+  <!-- Profile Info -->
+  <div>
+    <p><strong>Username:</strong> {{ user_obj.username }}</p>
+    <p><strong>Email:</strong> {{ user_obj.email }}</p>
+    <p><strong>First name:</strong> {{ user_obj.first_name }}</p>
+    <p><strong>Last name:</strong> {{ user_obj.last_name }}</p>
+  </div>
+
+  <hr>
+
+  <!-- Update Form -->
+  <h2>Update Profile</h2>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save Changes</button>
+  </form>
+{% endblock %}
