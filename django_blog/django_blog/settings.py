@@ -131,16 +131,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')   # for collectstatic (deplo
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
 
 LOGIN_REDIRECT_URL = 'blog:home'   # redirect after successful login
 LOGOUT_REDIRECT_URL = 'blog:home' # redirect after logout
 
 LOGIN_URL = 'users:login'
 
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # if you have a global /static/ folder
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')   # for collectstatic (deployment)
 
