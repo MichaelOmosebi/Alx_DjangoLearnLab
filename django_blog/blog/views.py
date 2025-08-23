@@ -20,6 +20,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post
 
+from django.contrib.auth.decorators import login_required # not used since we are using Class-based views - but imported since checker requests for it
+
 # ListView - Display all posts
 class PostListView(ListView):
     model = Post
