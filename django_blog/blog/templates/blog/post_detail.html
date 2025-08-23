@@ -1,5 +1,19 @@
+
 <h2>{{ object.title }}</h2>
 <p>{{ object.content }}</p>
+
+<!-- Display Tags -->
+<p>
+    <strong>Tags:</strong>
+    {% if object.tags.exists %}
+        {% for tag in object.tags.all %}
+            <a href="{% url 'posts_by_tag' tag.name %}">{{ tag.name }}</a>
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    {% else %}
+        No tags assigned.
+    {% endif %}
+</p>
 
 <hr>
 <h3>Comments</h3>

@@ -21,6 +21,12 @@
                 <a href="{% url 'users:register' %}">Register</a>
             {% endif %}
         </nav>
+
+        <!-- ✅ Search Form -->
+        <form method="get" action="{% url 'blog:post-search' %}" style="margin-top:10px;">
+            <input type="text" name="q" placeholder="Search posts..." value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+        </form>
     </header>
 
     <!-- 🔔 Flash messages -->

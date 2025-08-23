@@ -24,3 +24,11 @@ class Comment(models.Model):
     
 
 #models.py doesn't contain: ["Comment(models.Model)", "created_at", "updated_at"]
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    posts = models.ManyToManyField('Post', related_name='tags')
+
+    def __str__(self):
+        return self.name
