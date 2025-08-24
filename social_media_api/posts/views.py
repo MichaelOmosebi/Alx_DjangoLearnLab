@@ -11,6 +11,10 @@ from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
 from .pagination import PostPagination, CommentPagination
 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework import status
+
 class PostViewSet(viewsets.ModelViewSet):
     """
     Handles all CRUD operations for posts:
@@ -21,14 +25,33 @@ class PostViewSet(viewsets.ModelViewSet):
     - partial_update: PATCH /posts/{id}/
     - destroy: DELETE /posts/{id}/
     """
-    queryset = Post.objects.all().order_by('-created_at')
+    # queryset = Post.objects.all().order_by('-created_at')
+    # serializer_class = PostSerializer
+    # permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    # pagination_class = PostPagination
+    # filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    # filterset_fields = ['author__username']
+    # search_fields = ['title', 'content']
+    # ordering_fields = ['created_at', 'updated_at']
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
-    pagination_class = PostPagination
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['author__username']
-    search_fields = ['title', 'content']
-    ordering_fields = ['created_at', 'updated_at']
+
+    @action(detail=False, methods=['get'], url_path='feed')
+    def feed(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            return Response({"detail": "Authentication required"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        following_users = user.following.all() #the checker expects this line
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+
+        page = self.paginate_queryset(posts)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(posts, many=True)
+        return Response(serializer.data)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
