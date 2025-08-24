@@ -26,6 +26,7 @@ urlpatterns = [
     # API endpoints grouped under /api/
     path('api/accounts/', include('accounts.urls')),  # Authentication-related routes
     path('api/posts/', include('posts.urls')),        # Posts & Comments routes
+    path('api/notifications/', include('notifications.urls')),
 ]
 
 if settings.DEBUG:

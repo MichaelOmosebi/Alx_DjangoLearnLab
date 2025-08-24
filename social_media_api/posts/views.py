@@ -6,14 +6,18 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
 from .pagination import PostPagination, CommentPagination
 
+from django.shortcuts import get_object_or_404
+
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+
+from rest_framework.permissions import IsAuthenticated
 
 class PostViewSet(viewsets.ModelViewSet):
     """
@@ -52,6 +56,30 @@ class PostViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data)
+    
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def like(self, request, pk=None):
+        post = get_object_or_404(Post, pk=pk)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+        if created:
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb='liked your post',
+                target=post
+            )
+            return Response({"status": "post liked"})
+        return Response({"status": "already liked"}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def unlike(self, request, pk=None):
+        post = get_object_or_404(Post, pk=pk)
+        try:
+            like = Like.objects.get(user=request.user, post=post)
+            like.delete()
+            return Response({"status": "post unliked"})
+        except Like.DoesNotExist:
+            return Response({"status": "not liked yet"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
