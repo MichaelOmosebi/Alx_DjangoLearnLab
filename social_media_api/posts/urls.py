@@ -4,7 +4,7 @@ from . import views
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
 from django.urls import path, include
-from .views import PostViewSet, CommentViewSet, FeedViewSet
+from .views import PostViewSet, CommentViewSet, FeedViewSet, LikePostView, UnlikePostView
 
 # Main router for posts
 router = DefaultRouter()
@@ -24,6 +24,10 @@ urlpatterns = [
 
     # Explicit feed route --- for checker
     path('feed/', FeedViewSet.as_view({'get': 'list'}), name='user-feed'),
+
+    # Explicit like/unlike endpoints
+    path('posts/<int:pk>/like/', LikePostView.as_view(), name='post-like'),
+    path('posts/<int:pk>/unlike/', UnlikePostView.as_view(), name='post-unlike'),
 ]
 
 
