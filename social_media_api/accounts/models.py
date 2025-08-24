@@ -10,5 +10,6 @@ class CustomUser(AbstractUser):
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     followers = models.ManyToManyField('self', related_name='following', symmetrical=False, blank=True)
+    # 'self' because it's a relationship to the same model
 
 

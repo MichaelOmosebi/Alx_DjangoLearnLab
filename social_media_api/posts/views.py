@@ -58,7 +58,23 @@ class CommentViewSet(viewsets.ModelViewSet):
 # We do not want Comment.objects.all() globally."
 # 3. Instead, you filter comments based on the parent post passed via the URL (post_pk) from the nested router.
 
+###############################################
+# API Endpoints to Implement Feed Functionality
+###############################################
 
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.permissions import IsAuthenticated
+from .models import Post
+from .serializers import PostSerializer
+
+class FeedViewSet(ReadOnlyModelViewSet):
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author__in=user.following.all()).order_by('-created_at')
+    # Fetch posts from users that the current user is following
 
 
 ###################################################

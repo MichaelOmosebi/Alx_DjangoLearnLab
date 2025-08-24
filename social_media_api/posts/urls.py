@@ -4,7 +4,7 @@ from . import views
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
 from django.urls import path, include
-from .views import PostViewSet, CommentViewSet
+from .views import PostViewSet, CommentViewSet, FeedViewSet
 
 # Main router for posts
 router = DefaultRouter()
@@ -14,9 +14,13 @@ router.register(r'posts', PostViewSet, basename='posts')
 posts_router = NestedDefaultRouter(router, r'posts', lookup='post')
 posts_router.register(r'comments', CommentViewSet, basename='post-comments')
 
+feeds_router = DefaultRouter()
+feeds_router.register(r'feed', FeedViewSet, basename='user-feed')
+
 urlpatterns = [
     path('', include(router.urls)),
     path('', include(posts_router.urls)),
+    path('', include(feeds_router.urls)),
 ]
 
 

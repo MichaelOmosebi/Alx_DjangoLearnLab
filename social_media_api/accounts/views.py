@@ -9,10 +9,11 @@ from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import RegisterSerializer
-from rest_framework.authtoken.models import Token
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 @api_view(['POST'])
 def register(request):
@@ -54,3 +55,25 @@ class ProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+####################################
+# API Endpoints for Managing Follows
+####################################
+
+class FollowUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        target_user = get_object_or_404(User, id=user_id)
+        request.user.following.add(target_user)
+        return Response({"message": f"You are now following {target_user.username}"})
+
+class UnfollowUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        target_user = get_object_or_404(User, id=user_id)
+        request.user.following.remove(target_user)
+        return Response({"message": f"You have unfollowed {target_user.username}"})
+
+
