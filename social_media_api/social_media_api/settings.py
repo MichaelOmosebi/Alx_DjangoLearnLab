@@ -126,6 +126,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser' #I need to do this for every project that uses CustomUsers 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' # for the profile picture media in the User
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
