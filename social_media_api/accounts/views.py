@@ -4,14 +4,16 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from rest_framework import status
-from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer
+from rest_framework import generics, status
+from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+
+
 
 User = get_user_model()
 
@@ -60,20 +62,27 @@ class ProfileView(APIView):
 # API Endpoints for Managing Follows
 ####################################
 
-class FollowUserView(APIView):
+class FollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, user_id):
-        target_user = get_object_or_404(User, id=user_id)
-        request.user.following.add(target_user)
-        return Response({"message": f"You are now following {target_user.username}"})
+        user_to_follow = get_object_or_404(User, id=user_id)
+        if request.user == user_to_follow:
+            return Response({"detail": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+        request.user.following.add(user_to_follow)
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-class UnfollowUserView(APIView):
+class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, user_id):
-        target_user = get_object_or_404(User, id=user_id)
-        request.user.following.remove(target_user)
-        return Response({"message": f"You have unfollowed {target_user.username}"})
+        user_to_unfollow = get_object_or_404(User, id=user_id)
+        if request.user == user_to_unfollow:
+            return Response({"detail": "You cannot unfollow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+        request.user.following.remove(user_to_unfollow)
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 

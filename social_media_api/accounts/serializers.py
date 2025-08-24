@@ -45,13 +45,18 @@ class TokenSerializer(serializers.Serializer):
     token = serializers.CharField()
 
 
-
 class UserSerializer(serializers.ModelSerializer):
     followers_count = serializers.SerializerMethodField()
+    following_count = serializers.SerializerMethodField()
 
     class Meta:
-        model = CustomUser
-        fields = ['id', 'username', 'email', 'bio', 'profile_picture', 'followers_count']
+        model = User
+        fields = ['id', 'username', 'email', 'bio', 'profile_picture', 'followers_count', 'following_count']
 
     def get_followers_count(self, obj):
+        # Number of users following this user
         return obj.followers.count()
+
+    def get_following_count(self, obj):
+        # Number of users this user is following
+        return obj.following.count()
