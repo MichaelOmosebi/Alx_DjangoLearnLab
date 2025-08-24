@@ -22,8 +22,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('posts/', include('posts.urls', namespace='posts')),
+
+    # API endpoints grouped under /api/
+    path('api/accounts/', include('accounts.urls')),  # Authentication-related routes
+    path('api/posts/', include('posts.urls')),        # Posts & Comments routes
 ]
 
 if settings.DEBUG:
