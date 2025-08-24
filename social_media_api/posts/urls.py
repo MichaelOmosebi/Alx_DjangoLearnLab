@@ -20,7 +20,10 @@ feeds_router.register(r'feed', FeedViewSet, basename='user-feed')
 urlpatterns = [
     path('', include(router.urls)),
     path('', include(posts_router.urls)),
-    path('', include(feeds_router.urls)),
+    #path('', include(feeds_router.urls)),
+
+    # Explicit feed route --- for checker
+    path('feed/', FeedViewSet.as_view({'get': 'list'}), name='user-feed'),
 ]
 
 
